@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+TESTFILE=/etc/sysconfig/network-scripts/ifcfg-enp0s25
+
+set -o nounset -o errexit
+export PATH=/usr/sbin:/usr/bin:$PATH
+
+if [ -a  $TESTFILE ] 
+then
+  echo $(ip addr show enp0s25| grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+else
+  echo $(ip addr show enp8s0f0| grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+fi

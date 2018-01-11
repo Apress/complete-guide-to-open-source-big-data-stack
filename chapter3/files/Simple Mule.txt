@@ -1,0 +1,10 @@
+name: Simple Mule blueprint
+location: localhost
+services:
+- type: brooklyn.entity.mule.app.MuleServerApp
+  name: Simple Mule blueprint
+  period: 5000ms
+  brooklyn.config:
+    install.dir: /opt/mule/runtime/
+    run.dir: /opt/mule/runtime/mule-standalone-3.8.1
+version: 3.8.1

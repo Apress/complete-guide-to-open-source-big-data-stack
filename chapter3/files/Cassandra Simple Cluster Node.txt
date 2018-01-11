@@ -1,0 +1,14 @@
+name: Cassandra Simple Cluster Node
+location: 
+  byon:
+    user: root
+    hosts:
+    - 192.168.1.139
+services:
+- type: org.apache.brooklyn.entity.nosql.cassandra.CassandraNode
+  start.timeout: 30m
+  stopIptables: true
+  brookyn.policies:
+  - type: org.apache.brooklyn.policy.ha.ServiceRestarter
+  brooklyn.enrichers:
+  - type: org.apache.brooklyn.policy.ha.ServiceFailureDetector

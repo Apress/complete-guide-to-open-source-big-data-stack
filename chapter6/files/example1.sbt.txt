@@ -1,0 +1,14 @@
+
+name := "Example1"
+
+version := "1.0"
+
+scalaVersion := "2.11.6"
+
+libraryDependencies += "org.apache.hadoop" % "hadoop-mapreduce-client-core" % "2.1.0" from "file:///root/.dcos/spark/dist/spark-2.1.0-1-bin-2.6/jars/hadoop-mapreduce-client-core-2.6.4.jar"
+
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.1.0" from "file:///root/.dcos/spark/dist/spark-2.1.0-1-bin-2.6/jars/hadoop-client-2.6.4.jar"
+
+libraryDependencies += "org.apache.spark" %% "spark-core"  % "2.1.0" from file:///root/.dcos/spark/dist/spark-2.1.0-1-bin-2.6/jars/spark-core_2.11-2.1.0.jar
+
+

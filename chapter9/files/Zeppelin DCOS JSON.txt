@@ -1,0 +1,7 @@
+{
+  "service": {
+    "name": "zeppelin",
+    "zeppelin_java_opts": "-Dspark.mesos.coarse=true -Dspark.mesos.executor.home=/opt/spark/dist"
+  },
+  "spark": {}
+}

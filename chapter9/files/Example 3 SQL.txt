@@ -1,0 +1,6 @@
+
+%sql select  sum(Victimisations_calendar_year_2015) as victims, Territorial_authority_area_2013_label, Urban_area_type
+from assault
+where Territorial_authority_area_2013_label like "%Kapiti%"
+group by Territorial_authority_area_2013_label,Urban_area_type
+order by Territorial_authority_area_2013_label,Urban_area_type

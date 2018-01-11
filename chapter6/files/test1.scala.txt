@@ -1,0 +1,28 @@
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext._
+import org.apache.spark.SparkConf
+
+  val appName = "Fibonacci 1"
+  val conf = new SparkConf()
+
+  conf.setAppName(appName)
+
+  val sparkCxt = new SparkContext(conf)
+
+  var seed1:BigInt = 1
+  var seed2:BigInt = 1
+  val limit = 100
+  var resultStr = seed1 + " " + seed2 + " "
+
+  for( i <- 1 to limit ){
+
+    val fib:BigInt = seed1 + seed2
+    resultStr += fib.toString + " "
+
+    seed1 = seed2
+    seed2 = fib
+  }
+
+  println()
+  println( "Result : " + resultStr )
+  println()

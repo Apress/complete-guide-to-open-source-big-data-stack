@@ -1,0 +1,8 @@
+
+%sql select  sum(Victimisations_calendar_year_2015) as victims, Urban_area_type
+
+from assault
+
+group by Urban_area_type
+
+order by Urban_area_type

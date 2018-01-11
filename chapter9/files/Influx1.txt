@@ -1,0 +1,21 @@
+
+
+This file contains the commands used against influxdb in chapter 9. The SQL commands create the 
+database data and select data from the process table. The middle bash while command creates a data stream continuously and writes to the database table. 
+
+
+
+
+
+CREATE DATABASE "data"
+
+
+while [ 1 -eq 1 ]; do  
+  ps aux | sort -nrk 5,5 | head -n 5 | cut -c1-100 | sed 's/-/ /g' | \
+  awk '{print "process,proc="$11" value="$5}' | \
+  curl -i -XPOST 'http://192.168.1.109:24053/write?db=data' --data-binary @-
+  sleep 5
+done  
+
+
+select * from process where time > now() - 20m

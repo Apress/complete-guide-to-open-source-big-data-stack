@@ -1,0 +1,26 @@
+
+lazy val root = (project in file(".")).
+  settings(
+    name := "kafcom1",
+    version := "1.0",
+    scalaVersion := "2.11.8",
+    mainClass in Compile := Some("myPackage.MyMainObject")
+  )
+
+libraryDependencies ++= Seq(
+
+  "org.apache.kafka" % "kafka-clients"  % "0.10.1.0" from
+"file:///opt/dev/kafka_2.11-0.10.1.0/libs/kafka-clients-0.10.1.0.jar",
+
+  "org.apache.spark" % "spark-core"  % "2.1.1" from
+"file:///opt/dev/spark-2.1.1-bin-hadoop2.6/jars/spark-core_2.11-2.1.1.jar"
+
+)
+
+// META-INF discarding
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+   {
+    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+    case x => MergeStrategy.first
+   }
+}

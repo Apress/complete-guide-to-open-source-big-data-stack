@@ -1,0 +1,25 @@
+---
+# see https://dcos.io/docs/1.9/installing/     for details
+# Use this bootstrap_url value unless you have moved 
+# the DC/OS installer assets.
+#bootstrap_url: file:///opt/dcos_install_tmp
+bootstrap_url: http://192.168.1.118:9000
+cluster_name: 'cluster1'
+exhibitor_storage_backend: static
+master_discovery: static
+ip_detect_public_filename: genconf/ip-detect
+master_list:
+- 192.168.1.112
+#public_agent_list:
+#- <public-agent-private-ip>
+resolvers:
+- 8.8.4.4
+- 8.8.8.8
+ssh_port: 22
+ssh_user: root
+use_proxy: 'false'
+#http_proxy: http://<proxy_host>:<http_proxy_port>
+#https_proxy: https://<proxy_host>:<https_proxy_port>
+#no_proxy: 
+#- 'foo.bar.com'
+#- '.baz.com'

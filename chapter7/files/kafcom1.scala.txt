@@ -1,0 +1,57 @@
+
+
+import scala.collection.JavaConverters._
+import java.util.{Properties,Collections}
+import org.apache.kafka.clients.consumer.KafkaConsumer
+
+object KafCom1 extends App {
+
+  // set up some Kafka configuration values
+
+  val broker4    = "broker.kafka.l4lb.thisdcos.directory:9092"
+
+  val brokerList = broker4
+
+  val groupId       = "test-consumer-group"
+  val consTimeOut   = "5000"
+  val zooConTimeOut = "6000"
+  val topicName     = "topic1"
+  val pollPeriod    = 500
+  var printStr      = ""
+
+  // define the kafka properties
+
+  val properties = new Properties()
+
+  properties.put("bootstrap.servers", brokerList )
+  properties.put("group.id", groupId )
+  properties.put("consumer.timeout.ms", consTimeOut )
+  properties.put("zookeeper.connection.timeout.ms", zooConTimeOut )
+
+  properties.put("key.deserializer",
+            "org.apache.kafka.common.serialization.StringDeserializer")
+  properties.put("value.deserializer",
+            "org.apache.kafka.common.serialization.StringDeserializer")
+
+  val consumer = new KafkaConsumer[String, String](properties)
+
+  consumer.subscribe(Collections.singletonList(topicName))
+
+  while(true) {
+
+    val records=consumer.poll( pollPeriod )
+
+    for (record<-records.asScala){
+
+      printStr = "Read record - "
+      printStr = printStr + " key='"    + record.key() + "'  "
+      printStr = printStr + " value='"  + record.value() + "'  "
+      printStr = printStr + " offset='" + record.offset() + "'  "
+
+      println( printStr )
+
+    } // for
+
+  } // while
+
+} // end KafkaConsumer

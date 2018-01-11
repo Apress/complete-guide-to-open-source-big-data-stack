@@ -1,0 +1,47 @@
+
+import org.apache.commons.io.IOUtils
+import java.net.URL
+import java.nio.charset.Charset
+
+val assaultText = sc.parallelize(
+    IOUtils.toString(
+        new URL("http://www.semtech-solutions.co.nz/spark/assaults-2015-csv.csv"),
+        Charset.forName("utf8")).split("\n"))
+
+case class Assault(
+  Index	: Integer,
+  Area_unit_2013_code: Integer,
+  Area_unit_2013_label: String,
+  Victimisations_calendar_year_2015: Integer,
+  Population_mid_point_2015: Integer,
+  Rate_per_10000_population: Integer,
+  Rate_ratio_NZ_average_rate: Double,
+  Urban_area_2013_code: Integer,
+  Urban_area_2013_label: String,
+  Urban_area_type: String,
+  Territorial_authority_area_2013_code: Integer,
+  Territorial_authority_area_2013_label: String,
+  Region_2013_code: Integer,
+  Region_2013_label: String
+)
+
+val assault = assaultText.map(s => s.split(",")).filter(s => s(0) != "Index").map(
+    s => Assault(
+            s(0).toInt, 
+            s(1).toInt, 
+            s(2).toString, 
+            s(3).toInt, 
+            s(4).toInt, 
+            s(5).replaceAll("-", "").replaceAll(" ", "").toInt,
+            s(6).replaceAll("-", "").replaceAll(" ", "").toDouble,
+            s(7).toInt, 
+            s(8).toString, 
+            s(9).toString, 
+            s(10).toInt, 
+            s(11).toString, 
+            s(12).toInt, 
+            s(13).toString 
+        )
+).toDF()
+
+assault.registerTempTable("assault")
